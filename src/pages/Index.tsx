@@ -8,6 +8,13 @@ import {
 import { useState } from "react";
 import { toast } from "sonner";
 
+const ENQUIRY_TYPE_LABELS: Record<string, string> = {
+  employer: "Employer",
+  investor: "Investor",
+  homebuyer: "Homebuyer",
+  other: "Other",
+};
+
 const scrollTo = (id: string) => {
   const el = document.getElementById(id);
   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -18,12 +25,32 @@ const HomePage = () => {
     name: "", email: "", phone: "", type: "", message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    toast.success("Thank you — we'll be in touch within 24 hours.");
-    setFormData({ name: "", email: "", phone: "", type: "", message: "" });
+    setSending(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          from_name: formData.name,
+          from_email: formData.email,
+          phone: formData.phone || "",
+          enquiry_type: ENQUIRY_TYPE_LABELS[formData.type] ?? formData.type,
+          message: formData.message,
+        }),
+      });
+      if (!res.ok) throw new Error("non-2xx response");
+      setSubmitted(true);
+      toast.success("Thank you — we'll be in touch within 24 hours.");
+      setFormData({ name: "", email: "", phone: "", type: "", message: "" });
+    } catch {
+      toast.error("Something went wrong. Please try emailing us directly at logu@nuvaaproperties.com");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -418,7 +445,9 @@ const HomePage = () => {
                         <label className="text-xs font-body font-semibold text-foreground tracking-wide mb-1 block">Message *</label>
                         <textarea required maxLength={1000} rows={4} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} className="w-full border border-border rounded-md px-4 py-3 text-sm font-body bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 resize-none" placeholder="How can we help?" />
                       </div>
-                      <button type="submit" className="btn-primary w-full">Send Enquiry</button>
+                      <button type="submit" disabled={sending} className="btn-primary w-full disabled:opacity-60 disabled:cursor-not-allowed">
+                        {sending ? "Sending…" : "Send Enquiry"}
+                      </button>
                     </div>
                   </>
                 )}

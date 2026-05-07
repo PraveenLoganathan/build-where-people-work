@@ -1,0 +1,13 @@
+{
+  "name": "nuvaa-api",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "scripts": {
+    "start": "func start",
+    "build": "echo 'no build step'"
+  },
+  "dependencies": {
+    "@azure/communication-email": "^1.0.0",
+    "@azure/functions": "^4.5.0"
+  }
+}
