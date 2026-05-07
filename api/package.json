@@ -2,6 +2,7 @@
   "name": "nuvaa-api",
   "version": "1.0.0",
   "type": "commonjs",
+  "main": "src/functions/contact.js",
   "scripts": {
     "start": "func start",
     "build": "echo 'no build step'"
