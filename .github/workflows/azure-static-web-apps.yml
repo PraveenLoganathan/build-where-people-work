@@ -28,6 +28,9 @@ jobs:
       - name: Build frontend
         run: npm ci && npm run build
 
+      - name: Remove root node_modules before deploy
+        run: rm -rf node_modules
+
       - name: Install API dependencies
         run: cd api && npm ci
 
