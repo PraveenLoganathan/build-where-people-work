@@ -47,7 +47,7 @@ const HomePage = () => {
       toast.success("Thank you — we'll be in touch within 24 hours.");
       setFormData({ name: "", email: "", phone: "", type: "", message: "" });
     } catch {
-      toast.error("Something went wrong. Please try emailing us directly at logu@nuvaaproperties.com");
+      toast.error("Something went wrong. Please try emailing us directly at loganathan.govindasamy@gmail.com");
     } finally {
       setSending(false);
     }
@@ -361,8 +361,8 @@ const HomePage = () => {
                 <p className="font-heading italic text-accent text-xl md:text-2xl mt-8 leading-snug">
                   "Built to international standards. Delivered with local knowledge."
                 </p>
-                <a href="mailto:logu@nuvaaproperties.com" className="block mt-6 text-sm text-accent font-body hover:underline">
-                  logu@nuvaaproperties.com
+                <a href="mailto:loganathan.govindasamy@gmail.com" className="block mt-6 text-sm text-accent font-body hover:underline">
+                  loganathan.govindasamy@gmail.com
                 </a>
               </div>
             </AnimatedSection>
@@ -473,8 +473,8 @@ const HomePage = () => {
                 </div>
                 <div className="flex items-start gap-3">
                   <Mail className="w-5 h-5 text-accent mt-1 shrink-0" />
-                  <a href="mailto:logu@nuvaaproperties.com" className="text-sm font-body text-muted-foreground hover:text-accent transition-colors break-all">
-                    logu@nuvaaproperties.com
+                  <a href="mailto:loganathan.govindasamy@gmail.com" className="text-sm font-body text-muted-foreground hover:text-accent transition-colors break-all">
+                    loganathan.govindasamy@gmail.com
                   </a>
                 </div>
               </div>
